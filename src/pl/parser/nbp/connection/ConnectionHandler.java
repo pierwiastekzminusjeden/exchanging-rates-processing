@@ -1,4 +1,4 @@
-package com.KrystianMolenda.connection;
+package pl.parser.nbp.connection;
 
 
 import java.io.IOException;
