@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 
+/**
+ * Class responsible for preparing urls with needed data.
+ */
 public class UrlsCreator {
     private LocalDate begDate;
     private LocalDate endDate;
@@ -23,6 +26,11 @@ public class UrlsCreator {
         this.endDate = endDate;
     }
 
+    /**
+     * Function creates dirsURLs List of dirs urls and then xmlURLs list which contains needed xml urls.
+     * Runs @createDirsUrls and @createXmlUrls functions
+     * @return list of needed xml urls
+     */
     public ArrayList<URL> create(){
         try {
             createDirsUrls();
@@ -31,6 +39,10 @@ public class UrlsCreator {
         return xmlURLs;
     }
 
+    /**
+     * Based on run args function selects appropriate dir files and builds dirsUrls list.
+     * @throws MalformedURLException
+     */
     private void createDirsUrls() throws MalformedURLException{
         int begYear = begDate.getYear();
         int endYear = endDate.getYear();
@@ -47,6 +59,10 @@ public class UrlsCreator {
                 dirsURLs.add(new URL("http://www.nbp.pl/kursy/xml/" + "dir" + i + ".txt"));
     }
 
+    /**
+     * Based on dirsUrls function searches proper xml names and builds xmlURLs list.
+     * @throws IOException
+     */
     private void createXmlUrls() throws IOException{
         BufferedReader in;
         String regex = "c[0-9]{3}z[0-9]{6}";
@@ -72,6 +88,11 @@ public class UrlsCreator {
         }
     }
 
+    /**
+     *  Function used in @createXmlUrls function to create URLS with handling exceptions.
+     * @param data unique xml name based on the date of data.
+     * @return URL to xml file
+     */
     private URL createSingleXmlUrl(String data){
         try{
             return new URL("http://www.nbp.pl/kursy/xml/"+data+".xml");

@@ -16,8 +16,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Class allows reading xml files
+ */
 public class XMLReader {
-
+    /**
+     * Function reads multiple xml files and collects data about purchasing and selling currencies.
+     * Function adds readed data to dataContainer object.
+     * @param listToRead list of xml urls
+     * @param dc dataContainer wchih stores collected data from xml files
+     * @param currency
+     */
     public static void read(ArrayList<URL> listToRead,DataContainer dc, String currency) {
         try {
             BufferedReader in;
@@ -43,6 +52,6 @@ public class XMLReader {
                 }
             }
         } catch (ParserConfigurationException| SAXException| IOException e) {
-            System.err.println(e.getStackTrace() + "chuj"); }
+            System.err.println(e.getStackTrace()); }
     }
 }

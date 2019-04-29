@@ -5,17 +5,26 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * Class handling run args of program.
+ */
 public class RunArgsHandler {
     private LocalDate begDate;
     private LocalDate endDate;
     private String currency;
 
     RunArgsHandler(String currency, String begDate, String endDate){
-
         if(dataValidation(currency, begDate, endDate) == false)
             System.exit(1);
     }
 
+    /**
+     * Function is responsible for validation of run args. If everything is OK object of this class stores run args.
+     * @param currency
+     * @param begDate start date. Data is collecting from this date
+     * @param endDate end date. Data is collecting to this date
+     * @return boolean - if validation is correct true, else false
+     */
     private boolean dataValidation(String currency, String begDate, String endDate ){
 
         HashSet<String> currencySet = new HashSet<>(Arrays.asList("EUR","GBP","USD","CHF"));
