@@ -8,8 +8,9 @@ public class MainClass {
 
         if(args.length == 3){
             RunArgsHandler data = new RunArgsHandler(args[0], args[1], args[2]);
-            ConnectionHandler ch = new ConnectionHandler(data);
-            ch.searchingDirs();
+            UrlsCreator ch = new UrlsCreator(data.getBegDate(),data.getEndDate());
+            XMLReader reader = new XMLReader();
+            reader.read(ch.create(), data.getCurrency());
         }
         else{
             System.err.print("Wrong input");

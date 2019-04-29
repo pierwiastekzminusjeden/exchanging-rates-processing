@@ -18,7 +18,6 @@ public class RunArgsHandler {
             System.exit(-1);
     }
 
-
     private boolean dataValidation(String currency, String begDate, String endDate ){
 
         HashSet<String> currencySet = new HashSet<>(Arrays.asList("EUR","GBP","USD","CHF"));
@@ -46,7 +45,11 @@ public class RunArgsHandler {
             System.err.print("First possible date is 2002-01-01");
             return false;
         }
-
+        if(this.begDate.compareTo(LocalDate.now()) > 0 || this.endDate.compareTo(LocalDate.now()) > 0) {
+            System.err.print("Last possible date is " + LocalDate.now() +" Set to this date.");
+            this.endDate = LocalDate.now();
+            return true;
+        }
         return true;
     }
 
