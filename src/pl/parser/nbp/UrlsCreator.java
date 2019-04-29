@@ -16,10 +16,6 @@ public class UrlsCreator {
     private ArrayList<URL> dirsURLs;
     private ArrayList<URL> xmlURLs;
 
-    public ArrayList<URL> getXmlURLs() {
-        return xmlURLs;
-    }
-
     UrlsCreator(LocalDate begDate, LocalDate endDate){
         dirsURLs = new ArrayList<>();
         xmlURLs = new ArrayList<>();
@@ -27,21 +23,11 @@ public class UrlsCreator {
         this.endDate = endDate;
     }
 
-//
-//    UrlsCreator(RunArgsHandler args) {
-////        this.args = args;
-//        dirsURLs = new ArrayList<>();
-//        xmlURLs = new ArrayList<>();
-//    }
-
     public ArrayList<URL> create(){
         try {
             createDirsUrls();
             createXmlUrls();
-        }
-        catch (MalformedURLException e) { System.err.print(e.getStackTrace()); }
-        catch (IOException e) { System.err.print(e.getStackTrace()); }
-
+        } catch (IOException e) { System.err.print(e.getStackTrace()); }
         return xmlURLs;
     }
 
@@ -74,7 +60,6 @@ public class UrlsCreator {
                 + String.format("%02d", endDate.getDayOfMonth());
         int endInt = Integer.parseInt(tmp.substring(2));
 
-
         for (URL i : dirsURLs) {
             in = new BufferedReader(new InputStreamReader(i.openStream()));
             in.lines()
@@ -83,7 +68,6 @@ public class UrlsCreator {
                             Integer.parseInt(line.substring(5)) <= endInt)
                     .map(this::createSingleXmlUrl)
                     .forEach(url -> xmlURLs.add(url));
-
             in.close();
         }
     }
@@ -91,10 +75,7 @@ public class UrlsCreator {
     private URL createSingleXmlUrl(String data){
         try{
             return new URL("http://www.nbp.pl/kursy/xml/"+data+".xml");
-        }
-        catch(MalformedURLException e){
-            System.err.print(e.getStackTrace());
-        }
+        } catch(MalformedURLException e){ System.err.print(e.getStackTrace()); }
         return null;
     }
 

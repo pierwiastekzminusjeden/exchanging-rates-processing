@@ -12,10 +12,8 @@ public class RunArgsHandler {
 
     RunArgsHandler(String currency, String begDate, String endDate){
 
-        if(dataValidation(currency, begDate, endDate))
-            System.out.println("Parameters inserted");
-        else
-            System.exit(-1);
+        if(dataValidation(currency, begDate, endDate) == false)
+            System.exit(1);
     }
 
     private boolean dataValidation(String currency, String begDate, String endDate ){

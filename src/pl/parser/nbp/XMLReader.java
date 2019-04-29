@@ -5,23 +5,20 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class XMLReader {
 
-    private DataContainer dc;
-
-    XMLReader(){
-        dc = new DataContainer();
-    }
-
-    public void read(ArrayList<URL> listToRead, String currency) {
+    public static void read(ArrayList<URL> listToRead,DataContainer dc, String currency) {
         try {
             BufferedReader in;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -31,10 +28,6 @@ public class XMLReader {
                 InputStreamReader is = new InputStreamReader(i.openStream());
                 Document doc = dBuilder.parse(new InputSource(is));
                 doc.getDocumentElement().normalize();
-
-                //TODO porównać date publikacji z datą wczytywaną z pliku dla pewności
-                NodeList pubDate = doc.getElementsByTagName("data_publikacji");
-                System.out.println(pubDate.item(0).getTextContent());
 
                 NodeList nList = doc.getElementsByTagName("pozycja");
                 for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -49,10 +42,7 @@ public class XMLReader {
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace(); }
-        dc.calculations.average();
-        System.out.println();
-        dc.calculations.standardDeviation();
+        } catch (ParserConfigurationException| SAXException| IOException e) {
+            System.err.println(e.getStackTrace() + "chuj"); }
     }
 }
